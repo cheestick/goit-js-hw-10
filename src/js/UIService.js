@@ -2,7 +2,6 @@ import refs from './refs';
 
 function render(list) {
   const listLength = list.length;
-
   if (listLength > 10) {
     throw new Error(-1);
   }
@@ -21,6 +20,10 @@ function clearComponent(listRef) {
   listRef.innerHTML = '';
 }
 
+function clearAllComponents() {
+  refs.countryInfo.innerHTML = refs.countryList.innerHTML = '';
+}
+
 function createItemMarkup({ flags: { svg }, name: { official } }) {
   return `
     <li class="country-header">
@@ -35,7 +38,7 @@ function cardMarkup({ name: { official }, flags: { svg }, capital, population, l
       <img class="flag" src="${svg}" alt="${official} flag"/><span>${official}</span>
     </h3>
     <div class="info-field">
-      <span class="caption">Capital: </span><span>${official}</span>
+      <span class="caption">Capital: </span><span>${capital}</span>
     </div>
     <div class="info-field">
       <span class="caption">Population: </span><span>${population}</span>
@@ -46,4 +49,4 @@ function cardMarkup({ name: { official }, flags: { svg }, capital, population, l
       `;
 }
 
-export { render, clearComponent };
+export { render, clearComponent, clearAllComponents };

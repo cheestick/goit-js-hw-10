@@ -12,11 +12,15 @@ refs.searchBox.addEventListener('input', debounce(onInputChange, DEBOUNCE_DELAY)
 function onInputChange(event) {
   const countryName = event.target.value.trim();
   if (countryName === '') {
+    UIService.clearAllComponents();
     Notification.warning();
     return;
   }
 
   FetchServise.fetchCountries(countryName)
     .then(UIService.render)
-    .catch(Notification.processErrorMessage);
+    .catch(error => {
+      UIService.clearAllComponents();
+      Notification.processErrorMessage(error);
+    });
 }
