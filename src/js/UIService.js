@@ -2,9 +2,8 @@ import refs from './refs';
 
 function render(list) {
   const listLength = list.length;
-  console.log(listLength);
+
   if (listLength > 10) {
-    console.log('Request has too many countries. Enter more specific name.');
     throw new Error(-1);
   }
 
