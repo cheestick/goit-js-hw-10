@@ -16,7 +16,8 @@ function onInputChange(event) {
     return;
   }
   const countriesList = FetchServise.fetchCountries(countryName).catch(Notification.failure);
-  countriesList.then(renderCountriesList);
+  console.log(countriesList);
+  countriesList.then(renderCountriesList); //TODO: есть проблема с рендером undefined когда страна не найдена
 }
 
 function createCountryListItemMarkup({ flags: { svg }, name: { official } }) {
