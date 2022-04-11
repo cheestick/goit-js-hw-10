@@ -13,12 +13,19 @@ function onInputChange(event) {
   const countryName = event.target.value.trim();
   if (countryName === '') {
     UIService.clearComponent(refs.countryList);
+    UIService.clearComponent(refs.countryInfo);
     Notification.warning();
     return;
   }
 
-  const countriesList = FetchServise.fetchCountries(countryName).catch(Notification.failure);
-  console.log(countriesList);
-
-  countriesList.then(UIService.renderList); //TODO: есть проблема с рендером undefined когда страна не найдена
+  FetchServise.fetchCountries(countryName)
+    .then(UIService.render)
+    .catch(e => {
+      if (e.message == -1) {
+        Notification.info();
+      }
+      if (e.message == 404) {
+        Notification.failure();
+      }
+    });
 }
