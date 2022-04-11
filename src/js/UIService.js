@@ -9,11 +9,13 @@ function render(list) {
   }
 
   if (listLength > 1) {
+    clearComponent(refs.countryInfo);
     refs.countryList.innerHTML = list.map(createItemMarkup).join('');
     return;
   }
 
-  refs.countryInfo.innerHTML = cardMarkup(list);
+  clearComponent(refs.countryList);
+  refs.countryInfo.innerHTML = cardMarkup(list[0]);
 }
 
 function clearComponent(listRef) {

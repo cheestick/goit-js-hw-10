@@ -11,4 +11,13 @@ function warning() {
 function failure() {
   Notify.failure('Oops, there is no country with that name');
 }
-export { info, warning, failure };
+
+function processErrorMessage({ message }) {
+  if (message == -1) {
+    info();
+  }
+  if (message == 404) {
+    failure();
+  }
+}
+export { info, warning, failure, processErrorMessage };
