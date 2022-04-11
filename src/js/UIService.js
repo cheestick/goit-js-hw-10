@@ -1,5 +1,25 @@
 import refs from './refs';
 
+function render(list) {
+  const listLength = list.length;
+  console.log(listLength);
+  if (listLength > 10) {
+    console.log('Request has too many countries. Enter more specific name.');
+    throw new Error(-1);
+  }
+
+  if (listLength > 1) {
+    refs.countryList.innerHTML = list.map(createItemMarkup).join('');
+    return;
+  }
+
+  refs.countryInfo.innerHTML = cardMarkup(list);
+}
+
+function clearComponent(listRef) {
+  listRef.innerHTML = '';
+}
+
 function createItemMarkup({ flags: { svg }, name: { official } }) {
   return `
     <li class="country-header">
@@ -8,17 +28,8 @@ function createItemMarkup({ flags: { svg }, name: { official } }) {
     </li>`;
 }
 
-function renderList(list) {
-  const listMarkup = list.map(cardMarkup).join('');
-  refs.countryList.innerHTML = listMarkup;
-}
-
-function clearComponent(listRef) {
-  listRef.innerHTML = '';
-}
-
 function cardMarkup({ name: { official }, flags: { svg }, capital, population, languages }) {
-  const markup = `
+  return `
     <h3 class="country-header">
       <img class="flag" src="${svg}" alt="${official} flag"/><span>${official}</span>
     </h3>
@@ -32,7 +43,6 @@ function cardMarkup({ name: { official }, flags: { svg }, capital, population, l
       <span class="caption">Languages: </span><span>${Object.values(languages).join(', ')}</span>
     </div>
       `;
-  refs.countryInfo.innerHTML = markup;
 }
 
-export { renderList, clearComponent, cardMarkup };
+export { render, clearComponent };
